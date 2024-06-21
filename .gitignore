@@ -48,3 +48,6 @@
 
 # Visual Studio Code
 .vscode/
+
+# Boilerplate code
+redis/
