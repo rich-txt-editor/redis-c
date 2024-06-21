@@ -1,0 +1,50 @@
+# Compiled object files
+*.o
+*.obj
+
+# Compiled binary files
+*.exe
+*.out
+*.app
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+*.dll
+*.dylib
+*.so
+
+# Debug files
+*.gch
+*.pch
+
+# Generated files
+*.d
+*.depend
+
+# Debugger files
+*.debug
+*.stackdump
+
+# Other files
+*.plist
+*.pdb
+
+# CMake build directory
+/build/
+
+# CodeLite
+.project
+.codelite
+
+# CodeBlocks
+*.layout
+
+# JetBrains IDEs (CLion, etc.)
+.idea/
+*.iml
+
+# Visual Studio Code
+.vscode/
