@@ -1,4 +1,3 @@
-# redis-c
+## redis-c
 
-
-### a redis clone written in C and C++ from scratch. Practice makes perfect!
+A redis clone written in C/C++ from scratch. Practice makes perfect!
