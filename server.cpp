@@ -75,7 +75,7 @@ struct Conn
     uint8_t wbuf[4 + k_max_msg];
 };
 
-static void conn_put(std::vector<Conn *> &fdconn, struct Conn *conn)
+static void conn_put(std::vector<Conn *> &fd2conn, struct Conn *conn)
 {
     if (fd2conn.size() <= (size_t)conn->fd)
     {
@@ -84,7 +84,7 @@ static void conn_put(std::vector<Conn *> &fdconn, struct Conn *conn)
     fd2conn[conn->fd] = conn;
 }
 
-static int32_t accept_new_conn(std : vector<Conn *> &fd2conn, int fd)
+static int32_t accept_new_conn(std::vector<Conn *> &fd2conn, int fd)
 {
     // accept
     struct sockaddr_in client_addr = {};
@@ -97,7 +97,7 @@ static int32_t accept_new_conn(std : vector<Conn *> &fd2conn, int fd)
     }
 
     // set the new connection fd to nonblocking mode
-    fd_setnb(connfd);
+    fd_set_nb(connfd);
     // creating the struct Conn
     struct Conn *conn = (struct Conn *)malloc(sizeof(struct Conn));
     if (!conn)
@@ -109,7 +109,7 @@ static int32_t accept_new_conn(std : vector<Conn *> &fd2conn, int fd)
     conn->state = STATE_REQ;
     conn->rbuf_size = 0;
     conn->wbuf_size = 0;
-    con->wbuf_sent = 0;
+    conn->wbuf_sent = 0;
     conn_put(fd2conn, conn);
     return 0;
 }
@@ -145,15 +145,15 @@ static bool try_one_request(Conn *conn)
     // generating echoing response
     memcpy(&conn->wbuf[0], &len, 4);
     memcpy(&conn->wbuf[4], &conn->rbuf[4], len);
-    conn->wbuf_size = 4 + len
+    conn->wbuf_size = 4 + len;
 
-                              /*
-                              remove the request from the buffer
-                              note: frequent memmove is inefficient
-                              note: need better handling for production code.
-                              */
+    /*
+    remove the request from the buffer
+    note: frequent memmove is inefficient
+    note: need better handling for production code.
+    */
 
-                              size_t remain = conn->rbuf_size - 4 - len;
+    size_t remain = conn->rbuf_size - 4 - len;
     if (remain)
     {
         memmove(conn->rbuf, &conn->rbuf[4 + len], remain);
@@ -223,7 +223,7 @@ static void state_req(Conn *conn)
 
 static bool try_flush_buffer(Conn *conn)
 {
-    ssize_trv = 0;
+    ssize_t rv = 0;
     do
     {
         size_t remain = conn->wbuf_size - conn->wbuf_sent;
