@@ -51,3 +51,5 @@
 
 # Boilerplate code
 redis/
+
+**/DS_Store
